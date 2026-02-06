@@ -1,0 +1,165 @@
+# ============================================================================
+# TMUX CONFIGURATION - Catppuccin Mocha "OS-Aware" Edition
+# ============================================================================
+
+# ============================================================================
+# GENERAL SETTINGS
+# ============================================================================
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+set -g mouse on
+set -g base-index 1
+setw -g pane-base-index 1
+set -g renumber-windows on
+set -g history-limit 50000
+set -g display-time 4000
+set -g status-interval 5
+set -g focus-events on
+setw -g aggressive-resize on
+
+# Enable true color support
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+set-window-option -g automatic-rename on
+set-option -g set-titles on
+set -sg escape-time 0
+
+# ============================================================================
+# KEY BINDINGS
+# ============================================================================
+bind r source-file ~/.tmux.conf \; display "󰑓 Config reloaded!"
+
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+unbind '"'
+unbind %
+
+bind c new-window -c "#{pane_current_path}"
+
+# Vim-style pane navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Alt+arrow keys to switch panes
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Shift+arrow to switch windows
+bind -n S-Left previous-window
+bind -n S-Right next-window
+
+# Resize panes
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+bind -r z resize-pane -Z
+bind -r "<" swap-window -d -t -1
+bind -r ">" swap-window -d -t +1
+bind x kill-pane
+bind S choose-session
+
+# Copy mode
+setw -g mode-keys vi
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+bind P paste-buffer
+
+bind C-s setw synchronize-panes
+
+# ============================================================================
+# CATPPUCCIN MOCHA THEME COLORS
+# ============================================================================
+thm_bg="#1e1e2e"
+thm_fg="#cdd6f4"
+thm_cyan="#89dceb"
+thm_black="#181825"
+thm_gray="#313244"
+thm_magenta="#cba6f7"
+thm_pink="#f5c2e7"
+thm_red="#f38ba8"
+thm_green="#a6e3a1"
+thm_yellow="#f9e2af"
+thm_blue="#89b4fa"
+thm_orange="#fab387"
+
+# ============================================================================
+# GLYPH & SEPARATOR DEFINITIONS
+# ============================================================================
+left_sep=""
+right_sep=""
+
+# ============================================================================
+# OS DETECTION SCRIPT (Embedded)
+# ============================================================================
+# This checks for WSL, then specific Linux distros via /etc/os-release
+os_icon="#( \
+if grep -q 'microsoft' /proc/version 2>/dev/null; then echo '󰍲 '; \
+elif grep -q 'ubuntu' /etc/os-release 2>/dev/null; then echo '󰕈 '; \
+elif grep -q 'arch' /etc/os-release 2>/dev/null; then echo '󰣇 '; \
+elif grep -q 'fedora' /etc/os-release 2>/dev/null; then echo '󰣛 '; \
+elif grep -q 'debian' /etc/os-release 2>/dev/null; then echo '󰣚 '; \
+elif grep -q 'raspberry' /etc/os-release 2>/dev/null; then echo '󰐿 '; \
+elif grep -q 'alpine' /etc/os-release 2>/dev/null; then echo ' '; \
+else echo '󰌽 '; fi)"
+
+# ============================================================================
+# STATUS BAR CONFIGURATION
+# ============================================================================
+set-option -g status-position bottom
+set-option -g status-style "bg=${thm_bg},fg=${thm_fg}"
+
+# ── Status Left ──
+set-option -g status-left-length 100
+set-option -g status-left "#[fg=${thm_bg},bg=${thm_blue},bold] ${os_icon} #S #[fg=${thm_blue},bg=${thm_bg}]${right_sep}"
+
+# ── Status Right ──
+set-option -g status-right-length 150
+set-option -g status-right "#[fg=${thm_magenta},bg=${thm_bg}]${left_sep}#[fg=${thm_bg},bg=${thm_magenta}] 󰉋 #{b:pane_current_path} #[fg=${thm_gray},bg=${thm_magenta}]${left_sep}#[fg=${thm_fg},bg=${thm_gray}]  #(whoami) #[fg=${thm_pink},bg=${thm_gray}]${left_sep}#[fg=${thm_bg},bg=${thm_pink}] 󰃭 %b %d #[fg=${thm_cyan},bg=${thm_pink}]${left_sep}#[fg=${thm_bg},bg=${thm_cyan},bold] 󱑒 %H:%M "
+
+# ── Window Status ──
+set-option -g window-status-separator " "
+
+# Inactive Window
+set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]${left_sep}#[fg=${thm_fg},bg=${thm_gray}]#I #[fg=${thm_fg},bg=${thm_gray}]󰖲 #W#{?window_zoomed_flag, 󰁌 ,}#[fg=${thm_gray},bg=${thm_bg}]${right_sep}"
+
+# Active Window
+set-option -g window-status-current-format "#[fg=${thm_orange},bg=${thm_bg}]${left_sep}#[fg=${thm_bg},bg=${thm_orange},bold]#I #[fg=${thm_bg},bg=${thm_orange},bold]󰖯 #W#{?window_zoomed_flag, 󰁌 ,}#[fg=${thm_orange},bg=${thm_bg}]${right_sep}"
+
+# ── Pane Styling ──
+set-option -g pane-border-style "fg=${thm_gray}"
+set-option -g pane-active-border-style "fg=${thm_blue},bold"
+
+# ── Message/Command Styling ──
+set-option -g message-style "bg=${thm_orange},fg=${thm_bg}"
+set-option -g mode-style "bg=${thm_pink},fg=${thm_bg}"
+
+# ============================================================================
+# PLUGINS (TPM)
+# ============================================================================
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
+
+# Initialize TMUX plugin manager
+run '~/.tmux/plugins/tpm/tpm'
+
+# ============================================================================
+# CUSTOM FUNCTIONS
+# ============================================================================
+bind C-p new-session -A -s projects

@@ -1,0 +1,143 @@
+# ============================================================================
+# TMUX CONFIGURATION - Catppuccin Mocha "Ultimate Fade" Edition
+# ============================================================================
+
+# ============================================================================
+# GENERAL SETTINGS
+# ============================================================================
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+set -g mouse on
+set -g base-index 1
+setw -g pane-base-index 1
+set -g renumber-windows on
+set -g history-limit 50000
+set -g status-interval 5
+set -g focus-events on
+setw -g aggressive-resize on
+
+# True Color Support
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+set -ga terminal-overrides ",xterm-256color:Tc"
+set -sg escape-time 0
+
+# ============================================================================
+# CATPPUCCIN MOCHA PALETTE (The Blending Layers)
+# ============================================================================
+thm_bg="#1e1e2e"
+thm_fg="#cdd6f4"
+thm_cyan="#89dceb"
+thm_black="#181825"
+thm_gray="#313244"
+thm_magenta="#cba6f7"
+thm_pink="#f5c2e7"
+thm_red="#f38ba8"
+thm_green="#a6e3a1"
+thm_yellow="#f9e2af"
+thm_blue="#89b4fa"
+thm_orange="#fab387"
+
+# Faded blending colors
+thm_surface0="#313244"
+thm_surface1="#45475a"
+thm_surface2="#585b70"
+thm_overlay0="#6c7086"
+thm_overlay1="#7f849c"
+
+# ============================================================================
+# KEY BINDINGS
+# ============================================================================
+bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+
+# Splitting with current path
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+
+# Navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Quick Window Switch
+bind -n S-Left previous-window
+bind -n S-Right next-window
+
+# Copy Mode (Vim style)
+setw -g mode-keys vi
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+
+# ============================================================================
+# STATUS BAR: FADED & LAYERED DESIGN
+# ============================================================================
+set-option -g status-position bottom
+set-option -g status-style "bg=${thm_bg},fg=${thm_fg}"
+
+# ── Status Left ──
+# Fades from Blue to a deep Surface0
+set-option -g status-left-length 100
+set-option -g status-left "#[fg=${thm_bg},bg=${thm_blue},bold]  #S #[fg=${thm_blue},bg=${thm_surface0}]#[fg=${thm_overlay0},bg=${thm_surface0}] 󱂬 #[fg=${thm_surface0},bg=${thm_bg}]"
+
+# ── Status Right ──
+# A triple-fade gradient: Overlay1 (Dim) -> Surface1 (Mid) -> Magenta (Bright)
+set-option -g status-right-length 100
+set-option -g status-right "#[fg=${thm_surface1},bg=${thm_bg}]#[fg=${thm_overlay1},bg=${thm_surface1}]  #(whoami) #[fg=${thm_surface0},bg=${thm_surface1}]#[fg=${thm_overlay0},bg=${thm_surface0}] 󰃭 %b %d #[fg=${thm_magenta},bg=${thm_surface0}]#[fg=${thm_bg},bg=${thm_magenta},bold] 󱑒 %H:%M "
+
+# ============================================================================
+# WINDOW SEPARATOR OPTIONS (FADED STYLES)
+# ============================================================================
+
+# --- STYLE 1: The "Ghost Pill" (Currently Active) ---
+# Inactive: Faded grey-blue. Active: Vibrant Magenta.
+set-option -g window-status-format "#[fg=${thm_surface0},bg=${thm_bg}]#[fg=${thm_overlay0},bg=${thm_surface0}]#I #[fg=${thm_overlay0},bg=${thm_surface0}]#W#[fg=${thm_surface0},bg=${thm_bg}]"
+set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold]#I #[fg=${thm_bg},bg=${thm_magenta},bold]#W#[fg=${thm_magenta},bg=${thm_bg}]"
+set-option -g window-status-separator " "
+
+# --- STYLE 2: The "Faded Slant" (Uncomment to use) ---
+# set-option -g window-status-format "#[fg=${thm_surface1},bg=${thm_bg}]#[fg=${thm_overlay0},bg=${thm_surface1}] #I #W #[fg=${thm_surface1},bg=${thm_bg}]"
+# set-option -g window-status-current-format "#[fg=${thm_blue},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_blue},bold] #I #W #[fg=${thm_blue},bg=${thm_bg}]"
+# set-option -g window-status-separator ""
+
+# --- STYLE 3: The "Minimalist Fade" (Vertical Pipes) ---
+# set-option -g window-status-format "#[fg=${thm_overlay0},bg=${thm_bg}] #I #W "
+# set-option -g window-status-current-format "#[fg=${thm_bg},bg=${thm_magenta}] #I #W "
+# set-option -g window-status-separator "#[fg=${thm_surface1}]│"
+
+# --- STYLE 4: The "Foggy Blocks" ---
+# set-option -g window-status-format "#[fg=${thm_overlay0},bg=${thm_surface0}] #I #W "
+# set-option -g window-status-current-format "#[fg=${thm_bg},bg=${thm_green}] #I #W "
+# set-option -g window-status-separator " "
+
+# ============================================================================
+# PANE & UI STYLING
+# ============================================================================
+
+# Pane Borders: Inactive panes almost disappear into the background
+set-option -g pane-border-style "fg=${thm_surface0}"
+set-option -g pane-active-border-style "fg=${thm_surface2},bold"
+
+# Message Box: Faded background with bright text
+set-option -g message-style "bg=${thm_surface0},fg=${thm_orange},bold"
+
+# Copy Mode Highlight: Subtle selection
+set-option -g mode-style "bg=${thm_surface1},fg=${thm_fg}"
+
+# ============================================================================
+# PLUGINS (TPM)
+# ============================================================================
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# Restore sessions automatically
+set -g @continuum-restore 'on'
+
+# Initialize TPM (Keep this at the very bottom)
+run '~/.tmux/plugins/tpm/tpm'

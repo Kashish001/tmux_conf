@@ -1,0 +1,255 @@
+# ============================================================================
+# TMUX CONFIGURATION - Catppuccin Mocha Theme
+# ============================================================================
+
+# ============================================================================
+# GENERAL SETTINGS
+# ============================================================================
+
+# Change prefix from Ctrl+b to Ctrl+a (more ergonomic)
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# Enable mouse support
+set -g mouse on
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Renumber windows when one is closed
+set -g renumber-windows on
+
+# Increase scrollback buffer size
+set -g history-limit 50000
+
+# Display tmux messages for 4 seconds
+set -g display-time 4000
+
+# Refresh status bar more often
+set -g status-interval 5
+
+# Focus events enabled for terminals that support them
+set -g focus-events on
+
+# Super useful when using "grouped sessions" and multi-monitor setup
+setw -g aggressive-resize on
+
+# Enable true color support
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+
+# Enable RGB color if running in xterm
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# Automatically set window title
+set-window-option -g automatic-rename on
+set-option -g set-titles on
+
+# No delay for escape key press
+set -sg escape-time 0
+
+# ============================================================================
+# KEY BINDINGS
+# ============================================================================
+
+# Reload tmux config
+bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+
+# Split panes using | and - (more intuitive)
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+unbind '"'
+unbind %
+
+# Create new window with current path
+bind c new-window -c "#{pane_current_path}"
+
+# Vim-style pane navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Alt+arrow keys to switch panes without prefix
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Shift+arrow to switch windows
+bind -n S-Left previous-window
+bind -n S-Right next-window
+
+# Resize panes with Vim keys
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Toggle pane zoom
+bind -r z resize-pane -Z
+
+# Swap windows
+bind -r "<" swap-window -d -t -1
+bind -r ">" swap-window -d -t +1
+
+# Kill pane without confirmation
+bind x kill-pane
+
+# Switch sessions easily
+bind S choose-session
+
+# Copy mode improvements
+setw -g mode-keys vi
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+bind P paste-buffer
+
+# Toggle synchronize panes
+bind C-s setw synchronize-panes
+
+# ============================================================================
+# CATPPUCCIN MOCHA THEME COLORS
+# ============================================================================
+
+# Catppuccin Mocha color palette
+thm_bg="#1e1e2e"
+thm_fg="#cdd6f4"
+thm_cyan="#89dceb"
+thm_black="#181825"
+thm_gray="#313244"
+thm_magenta="#cba6f7"
+thm_pink="#f5c2e7"
+thm_red="#f38ba8"
+thm_green="#a6e3a1"
+thm_yellow="#f9e2af"
+thm_blue="#89b4fa"
+thm_orange="#fab387"
+thm_black4="#585b70"
+
+# ============================================================================
+# STATUS BAR CONFIGURATION
+# ============================================================================
+
+# Status bar position
+set-option -g status-position bottom
+
+# Status bar colors
+set-option -g status-style "bg=${thm_bg},fg=${thm_fg}"
+
+# Left status bar with powerline separators
+set-option -g status-left-length 100
+set-option -g status-left "#[bg=${thm_blue},fg=${thm_bg},bold] 󰇙 #S #[bg=${thm_bg},fg=${thm_blue}]#[fg=${thm_fg}] "
+
+# Right status bar with powerline separators
+set-option -g status-right-length 100
+set-option -g status-right "#[fg=${thm_gray}]#[fg=${thm_fg},bg=${thm_gray}]  #(whoami) #[fg=${thm_pink}]#[bg=${thm_pink},fg=${thm_bg}]  %b %d #[fg=${thm_blue}]#[bg=${thm_blue},fg=${thm_bg},bold]  %H:%M "
+
+# Window status format - CHOOSE YOUR STYLE BY UNCOMMENTING ONE OPTION BELOW
+
+# ── OPTION 1: Rounded Powerline Style (Recommended) ──
+# set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]#[fg=${thm_fg},bg=${thm_gray}] #I  #W #[fg=${thm_gray},bg=${thm_bg}]"
+# set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_magenta},bg=${thm_bg}]"
+# set-option -g window-status-separator "  "
+
+# ── OPTION 2: Angled Powerline Style (Sharp & Modern) ──
+set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]#[fg=${thm_fg},bg=${thm_gray}] #I  #W #[fg=${thm_gray},bg=${thm_bg}]"
+set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_magenta},bg=${thm_bg}]"
+set-option -g window-status-separator "  "
+
+# ── OPTION 3: Boxed Style with Dots ──
+# set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]#[fg=${thm_fg},bg=${thm_gray}] #I  #W #[fg=${thm_gray},bg=${thm_bg}]"
+# set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_magenta},bg=${thm_bg}]"
+# set-option -g window-status-separator " #[fg=${thm_black4}]󰇙#[fg=${thm_fg}] "
+
+# ── OPTION 4: Minimal Pipes ──
+# set-option -g window-status-format "#[fg=${thm_fg},bg=${thm_bg}] #I  #W "
+# set-option -g window-status-current-format "#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_fg},bg=${thm_bg}]"
+# set-option -g window-status-separator " #[fg=${thm_gray}]│#[fg=${thm_fg}] "
+
+# ── OPTION 5: Diamond Style (Fancy!) ──
+# set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]#[fg=${thm_fg},bg=${thm_gray}] #I  #W #[fg=${thm_gray},bg=${thm_bg}]"
+# set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_magenta},bg=${thm_bg}]"
+# set-option -g window-status-separator "  "
+
+# ── OPTION 6: Bubbles with Arrows ──
+# set-option -g window-status-format "#[fg=${thm_gray},bg=${thm_bg}]#[fg=${thm_fg},bg=${thm_gray}] #I  #W #[fg=${thm_gray},bg=${thm_bg}]"
+# set-option -g window-status-current-format "#[fg=${thm_magenta},bg=${thm_bg}]#[fg=${thm_bg},bg=${thm_magenta},bold] #I  #W #[fg=${thm_magenta},bg=${thm_bg}]"
+# set-option -g window-status-separator " #[fg=${thm_blue}]❯#[fg=${thm_fg}] "
+
+# Pane border colors and styling
+set-option -g pane-border-style "fg=${thm_gray}"
+set-option -g pane-active-border-style "fg=${thm_blue},bold"
+
+# Pane number display
+set-option -g display-panes-active-colour "${thm_blue}"
+set-option -g display-panes-colour "${thm_gray}"
+
+# Message style
+set-option -g message-style "bg=${thm_orange},fg=${thm_bg}"
+
+# Command message style
+set-option -g message-command-style "bg=${thm_blue},fg=${thm_bg}"
+
+# Mode style (copy mode, etc.)
+set-option -g mode-style "bg=${thm_pink},fg=${thm_bg}"
+
+# Clock mode color
+set-window-option -g clock-mode-colour "${thm_blue}"
+
+# Bell/Activity colors
+set-window-option -g window-status-activity-style "fg=${thm_yellow},bold"
+set-window-option -g window-status-bell-style "fg=${thm_red},bold"
+
+# Visual activity monitoring
+setw -g monitor-activity on
+set -g visual-activity off
+
+# ============================================================================
+# PLUGINS (TPM - Tmux Plugin Manager)
+# ============================================================================
+# To install TPM: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Then press prefix + I to install plugins
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# Plugin settings
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '15'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom)
+run '~/.tmux/plugins/tpm/tpm'
+
+# ============================================================================
+# CUSTOM FUNCTIONS
+# ============================================================================
+
+# Easy session creation for projects
+bind C-p new-session -A -s projects
+
+# ============================================================================
+# NOTES
+# ============================================================================
+# Key bindings summary:
+# Prefix: Ctrl+a
+# Reload config: prefix + r
+# Split horizontal: prefix + |
+# Split vertical: prefix + -
+# Navigate panes: prefix + h/j/k/l OR Alt+arrows
+# Switch windows: Shift+Left/Right
+# Resize panes: prefix + H/J/K/L
+# Zoom pane: prefix + z
+# Kill pane: prefix + x
+# Copy mode: prefix + [
+# Synchronize panes: prefix + Ctrl+s
+# Choose session: prefix + S
+# New project session: prefix + Ctrl+p
