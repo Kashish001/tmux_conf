@@ -1,0 +1,48 @@
+{
+	"font_size": 10,
+	"caret_style": "phase",
+	"color_scheme": "Catppuccin Mocha.sublime-color-scheme",
+	"save_on_focus_lost": true,
+	"font_face": "Jetbrains Mono",
+	// "font_face": "Comic Code Ligatures Medium Italic",
+	// "font_face": "Cascadia Mono",
+	"line_padding_bottom": 4,
+	"line_padding_top": 3,
+	"theme": "Adaptive.sublime-theme",
+	"trim_tariling_white_space_on_save": true,
+	"tab_size": 4,
+	"word_wrap": false,
+	/*"gn_hide_tab_dropdown": true,*/
+	/*"gn_overlay_scroll_bars": true,*/
+	/*"gn_sidebar_box": true,*/
+	/*"gn_title_bar": true,*/
+	/*"gnc_h13": true,*/
+	/*"gnc_m07": true,*/
+	/*"gnc_w5m10": true,*/
+	/*"gnwidg1": true,*/
+	/*"gnwidgo": true,*/
+	/*"gnc_h13": true,*/
+	/*"gnc_m04": true,*/
+	/*"gnc_w5m11": true,*/
+	/*"gnc_m05": true,*/
+	/*"gnc_h13": true,*/
+	/*"gnc_m06": true,*/
+	/*"gnc_w5m11": true,*/
+	/*"gnc_h13": true,*/
+	/*"gnc_m08": true,*/
+	/*"gnc_w5m11": true,*/
+	/*"gnc_m09": true,*/
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	/*"gnc_h13": true,*/
+	/*"gnc_m09": true,*/
+	/*"gnc_w5m11": true,*/
+	/*"gnc_h13": true,*/
+	/*"gnc_m09": true,*/
+	/*"gnc_w5m11": true,*/
+	/*"gnc_m00": true,*/
+	/*"gnc_w5m12": true,*/
+	"index_files": false,
+}

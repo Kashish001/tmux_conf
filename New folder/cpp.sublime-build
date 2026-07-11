@@ -1,0 +1,41 @@
+// { "shell_cmd": "g++ -std=c++17 \"${file}\" -o \"${file_path}/${file_base_name}\" && \"${file_path}/${file_base_name}\"",
+// "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+// "shell": true,
+// "working_dir": "${file_path}",
+// "selector": "source.c++, source.cpp, source.cc, source.cxx", 
+//     "variants": [ 
+//         { "name": "Run in", "shell_cmd": "g++ -std=c++17 \"${file}\" -o \"${file_path}/${file_base_name}\" && \"${file_path}/${file_base_name}\" < input.in" }, 
+//         { "name": "Run in out", "shell_cmd": "g++ -std=c++17 \"${file}\" -o \"${file_path}/${file_base_name}\" && \"${file_path}/${file_base_name}\" < input.in > output.out" },
+//         {
+//         "name": "Run in Terminal",
+//         "shell_cmd": "g++ -std=c++17 \"${file}\" -o \"${file_path}/${file_base_name}\" && gnome-terminal -e 'bash -c \"${file_path}/${file_base_name}&& echo && echo Press ENTER to continue && read line && exit\"'", // for gnome-terminal    
+//     }
+//     ] 
+// }
+
+{ 
+    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+    "shell": true,
+    "working_dir": "${file_path}",
+    "selector": "source.c++, source.cpp, source.cc, source.cxx",
+    // "cmd": ["g++.exe", "-std=c++17", "${file}",
+    //         "-o", "${file_base_name}.exe",
+    //         "&&", "${file_base_name}.exe<input.in>output.out"],
+    "cmd": ["g++.exe", "-Wall", "-Wextra", "-Wconversion", "-static", "-DONLINE_JUDGE", "-Wl,--stack=268435456", "-O2", "-std=c++20", "${file}",
+            "-o", "${file_base_name}.exe", "-lstdc++exp",
+            "&&", "${file_base_name}.exe<input.in>output.out"],
+}
+
+// {
+//   "shell_cmd" : "powershell -ExecutionPolicy Bypass \"& 'C:\\Users\\kashi\\OneDrive\\Documents\\Scripts\\CPP\\ST3-CP-Environment\\Script.ps1' -file '$file' -PATH '$file_path'\"", 
+//   "selector" : "source.c,source.cpp,source.c++",
+//   "shell": true,
+//   "working_dir" : "$file_path"
+// }
+
+// {
+//   "shell_cmd" : "powershell -ExecutionPolicy Bypass \"& 'C:\\Users\\kashi\\OneDrive\\Documents\\Scripts\\CPP\\ST3-CP-Environment\\ModifiedScript.ps1' -file '$file' -PATH '$file_path'\"", 
+//   "selector" : "source.c,source.cpp,source.c++",
+//   "shell": true,
+//   "working_dir" : "$file_path"
+// }

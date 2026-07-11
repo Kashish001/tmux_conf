@@ -1,0 +1,36 @@
+// Documentation at https://www.sublimetext.com/docs/color_schemes.html
+{
+    "variables":
+    {
+        // "yellow": "#fcc64c",
+        "yellow": "#fbc038",
+        "comment": "#08a38a",
+        "mauve": "#b477fc",
+        // "peach": "#f29155",
+        "peach": "#ea8445",
+        "green": "#94f748",
+        // "blue": "#659efc",
+        "blue": "#3c82ef",
+        // "red": "#f7779b",
+        "red": "#f7497a"
+    },
+    "globals":
+    {
+        "background": "var(mantle)"
+    },
+    "rules":
+    [
+        {
+            "name": "Comment",
+            "scope": "comment",
+            "foreground": "var(comment)",
+            "font_style": "italic"
+        },
+        {
+            "name": "Include",
+            "scope": "keyword.control.import.include",
+            "foreground": "var(mauve)",
+            "font_style": "italic"
+        },
+    ]
+}

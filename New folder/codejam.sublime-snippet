@@ -1,0 +1,52 @@
+<snippet>
+  <content><![CDATA[
+#include "bits/stdc++.h"
+using namespace std;
+
+#define int long long int  
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<pair<int, int>> vpi;
+typedef vector<string> vs;
+typedef vector<bool> vb;
+double EPS = 1e-9; 
+int INF = 1000000005; 
+long long INFF = 1000000000000000005LL;
+
+const int mod = 1e9 + 7; 
+
+#define FAST ios_base::sync_with_stdio(false); cin.tie(NULL)
+#define ALL(v) v.begin(), v.end() 
+#define size(v) (int)v.size() 
+#define endl '\n'
+#define TC int t, count = 1; cin >> t; while (t--) 
+
+struct custom_hash {
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        x ^= FIXED_RANDOM;
+        return x ^ (x >> 16);
+    }
+};
+
+void Code() {
+    $0
+}
+  
+signed main() { 
+
+    FAST;
+
+    TC {
+        cout << "Case #" << count++ << ": ";
+        Code();
+    }
+   
+    return 0; 
+} 
+]]></content>
+  <tabTrigger>codejam</tabTrigger>
+  <description>Panda</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <!-- <scope >source.python</scope > -->
+</snippet>

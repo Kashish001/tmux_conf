@@ -1,0 +1,14 @@
+{
+     "server_settings": {
+          "MyServer": {
+               "hostname": "",
+               "username": "",
+               "password": "",
+               "save_password": true,
+               "remote_path": [
+                    ""
+               ],
+               "local_path": "~/SFTP-Local/{auto_generate}"
+          }
+     }
+}

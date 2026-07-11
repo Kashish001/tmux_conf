@@ -1,0 +1,24 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"ayu",
+		"Catppuccin color schemes",
+		"ColorSchemeEditor",
+		"Dracula Color Scheme",
+		"FileIcons",
+		"GlassIt",
+		"Hammock Color Scheme",
+		"One Dark Material - Theme",
+		"Package Control",
+		"PackageResourceViewer",
+		"Python 3",
+		"Terminus",
+		"Theme - Monokai Pro",
+		"Theme - One Dark",
+		"Transparency",
+	],
+}

@@ -1,0 +1,9 @@
+<snippet>
+  <content><![CDATA[
+unordered_set
+]]></content>
+  <tabTrigger>uso</tabTrigger>
+  <description>Panda</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <!-- <scope >source.python</scope > -->
+</snippet>

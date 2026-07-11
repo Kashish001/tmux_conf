@@ -1,0 +1,9 @@
+<snippet>
+  <content><![CDATA[
+unordered_map
+]]></content>
+  <tabTrigger>umo</tabTrigger>
+  <description>Panda</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <!-- <scope >source.python</scope > -->
+</snippet>

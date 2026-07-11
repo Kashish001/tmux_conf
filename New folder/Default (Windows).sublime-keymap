@@ -1,0 +1,13 @@
+[
+    { "keys": ["alt+down"], "command": "duplicate_line" },
+    { "keys": ["alt+c"], "command": "cancel_build" },
+    {
+       "keys": ["ctrl+`"],
+       "command": "terminus_open",
+       "args" : {
+           "cmd": "powershell.exe",
+           "cwd": "${file_path:${folder}}",
+           "panel_name": "Terminus"
+       }
+   }
+]
